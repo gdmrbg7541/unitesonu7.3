@@ -110,7 +110,7 @@
             grid-area: instruction;
             text-align: center; 
             font-size: clamp(1.5rem, 4.5vmin, 2.8rem);
-            font-weight: 700;
+            font-weight: 400;
             color: #555;
         }
         
@@ -125,7 +125,7 @@
         }
         #progress-display {
             font-size: 1.5rem;
-            font-weight: bold;
+            font-weight: normal;
             color: var(--accent-color);
             flex-shrink: 0;
         }
@@ -155,16 +155,16 @@
             position: relative;
         }
 
-        /* --- ALT MENÜ (Footer) --- */
+/* --- ALT MENÜ (Footer) --- */
         .footer-nav {
-            padding: 10px 20px;
+            padding: 8px 15px; /* Dikey boşluk küçültüldü */
             background: #f8f9fa;
             border-top: 1px solid #dee2e6;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 10;
-            direction: ltr; 
+            direction: ltr;
         }
 
         .nav-btn {
@@ -173,13 +173,32 @@
             border: 2px solid var(--accent-color);
             border-radius: 10px;
             cursor: pointer;
-            width: clamp(50px, 10vmin, 65px);
-            height: clamp(40px, 8vmin, 50px);
+            
+            /* Kutu Boyutları */
+            min-width: clamp(100px, 15vmin, 140px); 
+            height: auto; /* İç boşlukların (padding) tam çalışması için auto yapıldı */
+            min-height: clamp(40px, 6vmin, 50px); 
+
+            /* --- KUTU İÇİ BOŞLUKLAR (Buradan ayarlayabilirsiniz) --- */
+            padding-top: 5px;    /* Yukarıdan boşluk */
+            padding-bottom: 5px; /* Aşağıdan boşluk */
+            padding-right: 5px;  /* Sağdan boşluk */
+            padding-left: 5px;   /* Soldan boşluk */
+            
+            /* (Kısa kullanım isterseniz: padding: 10px 15px 10px 15px; şeklinde de yazabilirsiniz) */
+
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 8px; /* İkon ile yazı arasındaki mesafe */
+            
             transition: all 0.2s ease;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-family: var(--font-arabic);
+            
+            /* --- YAZI BOYUTU (Buradan büyütebilir veya küçültebilirsiniz) --- */
+            font-size: clamp(1.8rem, 4vmin, 2.5rem); 
+            font-weight: bold;
         }
         .nav-btn:hover {
             background: var(--accent-color);
@@ -195,8 +214,8 @@
             box-shadow: none;
         }
         .nav-btn svg {
-            width: clamp(24px, 5vmin, 32px);
-            height: clamp(24px, 5vmin, 32px);
+            width: clamp(20px, 4vmin, 26px); /* İkon boyutu küçültüldü */
+            height: clamp(20px, 4vmin, 26px);
             fill: currentColor;
         }
 
@@ -206,13 +225,13 @@
             padding-bottom: 15px;
         }
         .question {
-            font-size: clamp(3rem, 7vmin, 5rem);
-            font-weight: 700;
+            font-size: clamp(3rem, 8vmin, 5rem);
+            font-weight: 400;
             text-align: center;
             margin-bottom: 30px;
             color: #212529;
-            line-height: 1;
-            line-height: 1.4; /* Satır aralığını kelimelerin çakışmaması için artırdık */
+           color: #212529;
+    line-height: 1.4; /* Satır aralığını kelimelerin çakışmaması için artırdık */
     white-space: pre-line;
         }
         .options {
@@ -226,7 +245,7 @@
             max-width: 95%;
             box-sizing: border-box;
             padding: 12px 18px;
-            font-size: clamp(2rem, 4.5vmin, 7rem);
+            font-size: clamp(2rem, 6vmin, 7rem);
             font-family: var(--font-arabic);
             background-color: var(--bg-light);
             border: 2px solid #ced4da;
@@ -306,7 +325,7 @@
             max-width: 80%;
         }
         .summary-icon {
-            font-weight: bold;
+            font-weight: normal;
             font-size: 2rem;
         }
         .summary-btn {
@@ -327,7 +346,7 @@
         /* --- Bitiş Ekranı --- */
         #finish-screen {
             text-align: center;
-            font-weight: 700;
+            font-weight: 400;
             color: var(--accent-color);
             display: flex;
             flex-direction: column;
@@ -348,7 +367,7 @@
             direction: ltr;
         }
         .score-item {
-            font-weight: 700;
+            font-weight: 400;
         }
         .score-correct { color: var(--success-color); }
         .score-incorrect { color: var(--danger-color); }
@@ -453,7 +472,7 @@
             cursor: pointer;
             transition: all 0.2s ease;
             font-family: var(--font-arabic);
-            font-weight: 700;
+            font-weight: 400;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
         #start-btn:hover {
@@ -532,136 +551,141 @@
     <div class="activity-area" id="activity-area"></div>
     
     <div class="footer-nav" id="footer-nav">
-        <button id="prev-btn" class="nav-btn" title="السابق">
+        <!-- İleri (Sonraki) Tuşu - Ekranda KESİNLİKLE SOLDA durur (Sola Ok) -->
+        <button id="next-btn" class="nav-btn" title="التّالي">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
             </svg>
+            <span>التّالي</span>
         </button>
         
-        <button id="next-btn" class="nav-btn" title="التالي">
+        <!-- Geri (Önceki) Tuşu - Ekranda KESİNLİKLE SAĞDA durur (Sağa Ok) -->
+        <button id="prev-btn" class="nav-btn" title="السّابِق">
+            <span>السّابِق</span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                 <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
             </svg>
         </button>
     </div>
 </div>
 
     <script>
-        // --- ETKİNLİK VERİLERİ ---
+// --- ETKİNLİK VERİLERİ ---
 const activitiesData = [
     {
         title: "الوَحْدَة الثّالِثَة: وَسائِل النَّقْل وَالأَماكِن",
         quiz: [
             // --- 1. وَسائِل النَّقْل (Ulaşım Araçları) ---
             {
-                q: "أَذْهَبُ إِلى المَدْرَسَة ............ . (🚶)", 
-                o: ["بِالسَّيّارَة", "مَشْيًا", "بِالحافِلَة", "بِالقِطار", "بِالطّائِرَة"], 
-                a: 1
+                "q": "أَذْهَبُ إِلى المَدْرَسَة ............ . (🚶)", 
+                "o": ["بِالسَّيّارَة", "مَشْيًا", "بِالحافِلَة", "بِالقِطار"], 
+                "a": 1
             },
             {
-                q: "أَبي يُسافِرُ إِلى أَنْقَرَة بِـ ............ . (✈️)", 
-                o: ["الدَّرّاجَة", "السَّفينَة", "المِتْرو", "الطّائِرَة", "الحافِلَة"], 
-                a: 3
+                "q": "أَبي يُسافِرُ إِلى أَنْقَرَة بِـ ............ . (✈️)", 
+                "o": ["الدَّرّاجَة", "السَّفينَة", "المِتْرو", "الطّائِرَة"], 
+                "a": 3
             },
             {
-                q: "أُمّي تَذْهَبُ إِلى المُسْتَشْفى بِـ ............ . (🚗)", 
-                o: ["السَّيّارَة", "القِطار", "المَكْتَبَة", "المَسْجِد", "السّوق"], 
-                a: 0
+                "q": "أُمّي تَذْهَبُ إِلى المُسْتَشْفى بِـ ............ . (🚗)", 
+                "o": ["السَّيّارَة", "القِطار", "المَكْتَبَة", "المَسْجِد"], 
+                "a": 0
             },
             {
-                q: "أَنا أَرْكَبُ ............ كُلّ صَباح. (🚲)", 
-                o: ["الحافِلَة", "السَّفينَة", "القِطار", "الدَّرّاجَة", "المِتْرو"], 
-                a: 3
+                "q": "أَنا أَرْكَبُ ............ كُلّ صَباح. (🚲)", 
+                "o": ["الحافِلَة", "السَّفينَة", "القِطار", "الدَّرّاجَة"], 
+                "a": 3
             },
             {
-                q: "أُسافِرُ في العُطْلَة إِلى بورْصَة بِـ ............ . (🚢)", 
-                o: ["الطّائِرَة", "السَّفينَة", "الحافِلَة", "المِتْرو", "السَّيّارَة"], 
-                a: 1
+                "q": "أُسافِرُ في العُطْلَة إِلى بورْصَة بِـ ............ . (🚢)", 
+                "o": ["الطّائِرَة", "السَّفينَة", "الحافِلَة", "المِتْرو"], 
+                "a": 1
             },
 
             // --- 2. المُقارَنات (Karşılaştırmalar) ---
             {
-                q: "الطّائِرَة ............ مِن السَّفينَة. (⚡)", 
-                o: ["أَبْطَأ", "أَقْدَم", "أَسْرَع", "أَصْغَر", "أَقْصَر"], 
-                a: 2
+                "q": "الطّائِرَة ............ مِن السَّفينَة. (⚡)", 
+                "o": ["أَبْطَأ", "أَقْدَم", "أَسْرَع", "أَصْغَر"], 
+                "a": 2
             },
             {
-                q: "المِتْرو ............ مِن السَّيّارَة. (✨)", 
-                o: ["أَحْدَث", "أَقْدَم", "أَبْطَأ", "أَكْبَر", "أَطْوَل"], 
-                a: 0
+                "q": "المِتْرو ............ مِن السَّيّارَة. (✨)", 
+                "o": ["أَحْدَث", "أَقْدَم", "أَبْطَأ", "أَكْبَر"], 
+                "a": 0
             },
             {
-                q: "القِطار ............ مِن الحافِلَة. (⚡)", 
-                o: ["أَحْدَث", "أَسْرَع", "أَقْدَم", "أَجْمَل", "أَكْبَر"], 
-                a: 1
+                "q": "القِطار ............ مِن الحافِلَة. (⚡)", 
+                "o": ["أَحْدَث", "أَسْرَع", "أَقْدَم", "أَكْبَر"], 
+                "a": 1
             },
             {
-                q: "الدَّرّاجَة ............ مِن القِطار. (🐢)", 
-                o: ["أَسْرَع", "أَحْدَث", "أَبْطَأ", "أَكْبَر", "أَطْوَل"], 
-                a: 2
+                "q": "الدَّرّاجَة ............ مِن القِطار. (🐢)", 
+                "o": ["أَسْرَع", "أَحْدَث", "أَبْطَأ", "أَكْبَر"], 
+                "a": 2
             },
             {
-                q: "السَّفينَة ............ مِن الحافِلَة. (🐢)", 
-                o: ["أَسْرَع", "أَبْطَأ", "أَحْدَث", "أَكْبَر", "أَجْمَل"], 
-                a: 1
+                "q": "السَّفينَة ............ مِن الحافِلَة. (🐢)", 
+                "o": ["أَسْرَع", "أَبْطَأ", "أَحْدَث", "أَكْبَر"], 
+                "a": 1
             },
 
             // --- 3. الاِتِّجاهات وَالمُرور (Yönler ve Trafik) ---
             {
-                q: "قِفْ عِنْد الضَّوْء ............ . (🔴)", 
-                o: ["الأَخْضَر", "الأَصْفَر", "الأَحْمَر", "الأَزْرَق", "الأَبْيَض"], 
-                a: 2
+                "q": "قِفْ عِنْد الضَّوْء ............ . (🔴)", 
+                "o": ["الأَخْضَر", "الأَصْفَر", "الأَحْمَر", "الأَزْرَق"], 
+                "a": 2
             },
             {
-                q: "اُعْبُرْ عِنْد الضَّوْء ............ . (🟢)", 
-                o: ["الأَحْمَر", "الأَصْفَر", "الأَخْضَر", "الأَسْوَد", "الأَبْيَض"], 
-                a: 2
+                "q": "اُعْبُرْ عِنْد الضَّوْء ............ . (🟢)", 
+                "o": ["الأَحْمَر", "الأَصْفَر", "الأَخْضَر", "الأَسْوَد"], 
+                "a": 2
             },
             {
-                q: "مَحَطَّة المِتْرو عَلى ............ . (➡️)", 
-                o: ["اليَسار", "اليَمين", "أَمام", "خَلْف", "تَحْت"], 
-                a: 1
+                "q": "مَحَطَّة المِتْرو عَلى ............ . (➡️)", 
+                "o": ["اليَسار", "اليَمين", "أَمام", "خَلْف"], 
+                "a": 1
             },
             {
-                q: "السّوق عَلى ............ . (⬅️)", 
-                o: ["اليَمين", "خَلْف", "فَوْق", "اليَسار", "تَحْت"], 
-                a: 3
+                "q": "السّوق عَلى ............ . (⬅️)", 
+                "o": ["اليَمين", "خَلْف", "أَمام", "اليَسار"], 
+                "a": 3
             },
             {
-                q: "اِمْشِ إِلى ............ ثُمَّ اتَّجِهْ يَسارًا. (⬆️)", 
-                o: ["الأَمام", "الخَلْف", "اليَمين", "اليَسار", "تَحْت"], 
-                a: 0
+                "q": "اِمْشِ إِلى ............ ثُمَّ اتَّجِهْ يَسارًا. (⬆️)", 
+                "o": ["الأَمام", "الخَلْف", "اليَمين", "اليَسار"], 
+                "a": 0
             },
 
             // --- 4. الأَماكِن وَالحِوارات (Mekanlar ve Diyaloglar) ---
             {
-                q: "- أَيْن ............ مِن الحافِلَة؟\n- أَمامَ المُسْتَشْفى.", 
-                o: ["أَرْكَبُ", "أَنْزِلُ", "أَذْهَبُ", "أَرْجِعُ", "أُسافِرُ"], 
-                a: 1
+                "q": "- أَيْن ............ مِن الحافِلَة؟\n- أَمامَ المُسْتَشْفى.", 
+                "o": ["أَرْكَبُ", "أَنْزِلُ", "أَذْهَبُ", "أَرْجِعُ"], 
+                "a": 1
             },
             {
-                q: "- كَيْفَ تَذْهَبُ إِلى المَدْرَسَة؟\n- ............ .", 
-                o: ["بِالسَّفينَة", "بِالطّائِرَة", "مَشْيًا", "بِالبَحْر", "بِالجَوّ"], 
-                a: 2
+                "q": "- كَيْفَ تَذْهَبُ إِلى المَدْرَسَة؟\n- ............ .", 
+                "o": ["بِالسَّفينَة", "بِالطّائِرَة", "مَشْيًا", "بِالحافِلَة"], 
+                "a": 2
             },
             {
-                q: "أَرْجِعُ مِن ............ في السّاعَة الرّابِعَة. (📚)", 
-                o: ["المُسْتَشْفى", "المَكْتَبَة", "المَسْجِد", "السّوق", "المَوْقِف"], 
-                a: 1
+                "q": "أَرْجِعُ مِن ............ في السّاعَة الرّابِعَة. (📚)", 
+                "o": ["المُسْتَشْفى", "المَكْتَبَة", "المَسْجِد", "السّوق"], 
+                "a": 1
             },
             {
-                q: "شُكْرًا لَكِ يا شَيْماء، إِلى ............ .", 
-                o: ["السَّلامَة", "اللِّقاء", "عَفْوًا", "مَرْحَبًا", "الصَّباح"], 
-                a: 1
+                "q": "شُكْرًا لَكِ يا شَيْماء، إِلى ............ .", 
+                "o": ["السَّلامَة", "اللِّقاء", "عَفْوًا", "مَرْحَبًا"], 
+                "a": 1
             },
             {
-                q: "جَدّي يَتَّجِهُ إِلى ............ بِالسَّيّارَة. (🕌)", 
-                o: ["المَدْرَسَة", "المُسْتَشْفى", "المَسْجِد", "المَكْتَبَة", "السّوق"], 
-                a: 2
+                "q": "جَدّي يَتَّجِهُ إِلى ............ بِالسَّيّارَة. (🕌)", 
+                "o": ["المَدْرَسَة", "المُسْتَشْفى", "المَسْجِد", "المَكْتَبَة"], 
+                "a": 2
             }
         ]
     }
 ];
+
         // --- Elementler ---
         const activityArea = document.getElementById('activity-area');
         const instructionText = document.getElementById('instruction-text');
@@ -786,7 +810,7 @@ const activitiesData = [
 
             const question = document.createElement('div');
             question.className = 'question';
-            question.innerHTML = data.q.replace(/\n/g, '<br>');
+            question.textContent = data.q;
             quizContainer.appendChild(question);
 
             const optionsContainer = document.createElement('div');
